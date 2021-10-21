@@ -25,15 +25,16 @@ const Sidebar = (props: Props) => {
       {...props}
       className="flex-shrink-0 h-full px-4 py-2 overflow-auto border-r border-gray-100 border-solid w-72"
     >
-      <CheckboxGroup
-        value={categoryFilter.selected}
-        onChange={(value) => categoryFilter.setSelected(value as string[])}
-      >
-        <FilterBox>
-          <FilterBox.Title>Category</FilterBox.Title>
+      <FilterBox>
+        <FilterBox.Title>Category</FilterBox.Title>
+        <CheckboxGroup
+          value={categoryFilter.selected}
+          onChange={(value) => categoryFilter.setSelected(value as string[])}
+        >
           {!!searched &&
             categoryFilter.options.slice(0, 10).map(({ count, label }) => (
               <FilterBox.Item
+                key={label}
                 item={{
                   control: (
                     <>
@@ -49,18 +50,19 @@ const Sidebar = (props: Props) => {
                 }}
               />
             ))}
-        </FilterBox>
-      </CheckboxGroup>
+        </CheckboxGroup>
+      </FilterBox>
 
-      <CheckboxGroup
-        value={brandFilter.selected}
-        onChange={(value) => brandFilter.setSelected(value as string[])}
-      >
-        <FilterBox>
-          <FilterBox.Title>Brand</FilterBox.Title>
+      <FilterBox>
+        <FilterBox.Title>Brand</FilterBox.Title>
+        <CheckboxGroup
+          value={brandFilter.selected}
+          onChange={(value) => brandFilter.setSelected(value as string[])}
+        >
           {!!searched &&
             brandFilter.options.slice(0, 10).map(({ count, label }) => (
               <FilterBox.Item
+                key={label}
                 item={{
                   control: (
                     <>
@@ -76,8 +78,8 @@ const Sidebar = (props: Props) => {
                 }}
               />
             ))}
-        </FilterBox>
-      </CheckboxGroup>
+        </CheckboxGroup>
+      </FilterBox>
 
       <FilterBox>
         <FilterBox.Title>Price</FilterBox.Title>
@@ -98,15 +100,16 @@ const Sidebar = (props: Props) => {
         )}
       </FilterBox>
 
-      <CheckboxGroup
-        value={ratingFilter.selected}
-        onChange={(value) => ratingFilter.setSelected(value as string[])}
-      >
-        <FilterBox>
-          <FilterBox.Title>Rating</FilterBox.Title>
+      <FilterBox>
+        <FilterBox.Title>Rating</FilterBox.Title>
+        <CheckboxGroup
+          value={ratingFilter.selected}
+          onChange={(value) => ratingFilter.setSelected(value as string[])}
+        >
           {!!searched &&
-            ratingFilter.options.map(({ count, label, value }) => (
+            ratingFilter.options.map(({ count, label }) => (
               <FilterBox.Item
+                key={label}
                 item={{
                   control: (
                     <>
@@ -122,8 +125,8 @@ const Sidebar = (props: Props) => {
                 }}
               />
             ))}
-        </FilterBox>
-      </CheckboxGroup>
+        </CheckboxGroup>
+      </FilterBox>
     </div>
   );
 };

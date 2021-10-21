@@ -1,1 +1,1 @@
-export { default } from './useControllable'
+export { default as useControllable } from "./useControllable";
