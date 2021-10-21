@@ -3,8 +3,9 @@ import {
   useRangeFilter,
   useSearchContext,
 } from "@sajari/react-hooks";
-import { Rate } from "antd";
-import { CheckboxOption, FilterBox, Form } from "../..";
+import { Rate, Slider } from "antd";
+import React from "react";
+import { CheckboxGroup, CheckboxOption, FilterBox } from "../..";
 
 type Props = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -22,47 +23,24 @@ const Sidebar = (props: Props) => {
   return (
     <div
       {...props}
-      className="h-full px-4 py-2 overflow-auto border-r border-gray-100 border-solid w-72"
+      className="flex-shrink-0 h-full px-4 py-2 overflow-auto border-r border-gray-100 border-solid w-72"
     >
-      <Form.CheckboxGroup name="category">
+      <CheckboxGroup
+        value={categoryFilter.selected}
+        onChange={(value) => categoryFilter.setSelected(value as string[])}
+      >
         <FilterBox>
           <FilterBox.Title>Category</FilterBox.Title>
           {!!searched &&
-            categoryFilter.options
-              .slice(0, 10)
-              .map(({ count, label, value }) => (
-                <FilterBox.Item
-                  item={{
-                    control: (
-                      <>
-                        <CheckboxOption
-                          name="category"
-                          className="mr-2"
-                          value={value}
-                        />
-                        <div>{label}</div>
-                      </>
-                    ),
-                    count,
-                  }}
-                />
-              ))}
-        </FilterBox>
-      </Form.CheckboxGroup>
-
-      <Form.CheckboxGroup name="brand">
-        <FilterBox>
-          <FilterBox.Title>Brand</FilterBox.Title>
-          {!!searched &&
-            brandFilter.options.slice(0, 10).map(({ count, label, value }) => (
+            categoryFilter.options.slice(0, 10).map(({ count, label }) => (
               <FilterBox.Item
                 item={{
                   control: (
                     <>
                       <CheckboxOption
-                        name="brand"
+                        name="category"
                         className="mr-2"
-                        value={value}
+                        value={label}
                       />
                       <div>{label}</div>
                     </>
@@ -72,30 +50,58 @@ const Sidebar = (props: Props) => {
               />
             ))}
         </FilterBox>
-      </Form.CheckboxGroup>
+      </CheckboxGroup>
 
-      <Form.CheckboxGroup name="price">
+      <CheckboxGroup
+        value={brandFilter.selected}
+        onChange={(value) => brandFilter.setSelected(value as string[])}
+      >
         <FilterBox>
-          <FilterBox.Title>Price</FilterBox.Title>
-          {!!searched && !!priceFilter.max && !!priceFilter.min && (
-            <div>
-              <div className="flex justify-between">
-                <div>{priceFilter.min}</div>
-                <div>{priceFilter.max}</div>
-              </div>
-              <Form.Slider
-                name="price"
-                defaultValue={[0, 5000]}
-                range
-                max={priceFilter.max}
-                min={priceFilter.min}
+          <FilterBox.Title>Brand</FilterBox.Title>
+          {!!searched &&
+            brandFilter.options.slice(0, 10).map(({ count, label }) => (
+              <FilterBox.Item
+                item={{
+                  control: (
+                    <>
+                      <CheckboxOption
+                        name="brand"
+                        className="mr-2"
+                        value={label}
+                      />
+                      <div>{label}</div>
+                    </>
+                  ),
+                  count,
+                }}
               />
-            </div>
-          )}
+            ))}
         </FilterBox>
-      </Form.CheckboxGroup>
+      </CheckboxGroup>
 
-      <Form.CheckboxGroup name="rating">
+      <FilterBox>
+        <FilterBox.Title>Price</FilterBox.Title>
+        {!!searched && !!priceFilter.max && !!priceFilter.min && (
+          <div>
+            <div className="flex justify-between">
+              <div>{priceFilter.min}</div>
+              <div>{priceFilter.max}</div>
+            </div>
+            <Slider
+              value={priceFilter.range || [priceFilter.min, priceFilter.max]}
+              onChange={(value) => priceFilter.setRange(value)}
+              range
+              max={priceFilter.max}
+              min={priceFilter.min}
+            />
+          </div>
+        )}
+      </FilterBox>
+
+      <CheckboxGroup
+        value={ratingFilter.selected}
+        onChange={(value) => ratingFilter.setSelected(value as string[])}
+      >
         <FilterBox>
           <FilterBox.Title>Rating</FilterBox.Title>
           {!!searched &&
@@ -107,7 +113,7 @@ const Sidebar = (props: Props) => {
                       <CheckboxOption
                         name="rating"
                         className="mr-2"
-                        value={value}
+                        value={label}
                       />
                       <Rate className="pointer-events-none" value={+label} />
                     </>
@@ -117,7 +123,7 @@ const Sidebar = (props: Props) => {
               />
             ))}
         </FilterBox>
-      </Form.CheckboxGroup>
+      </CheckboxGroup>
     </div>
   );
 };

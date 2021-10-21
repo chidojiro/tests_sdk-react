@@ -3,16 +3,19 @@ import React from "react";
 import { noop } from "lodash";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 
-export type Props<T = any> = Omit<
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-  "ref"
-> & {
+type OwnProps<T = any> = {
   onChange?: (value: T[]) => void;
   value?: T[];
   className?: string;
   name?: string;
   defaultValue?: T[];
 };
+
+export type Props<T = any> = Omit<
+  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+  "ref" | keyof OwnProps<T>
+> &
+  OwnProps<T>;
 
 export type GroupProvider<T> = {
   groupProps?: Props<T>;
@@ -27,7 +30,10 @@ export const GroupContext = React.createContext<GroupProvider<any>>({
 });
 
 const Group = React.forwardRef(
-  <T,>(props: Props<T>, ref: React.ForwardedRef<HTMLInputElement>) => {
+  <T extends any>(
+    props: Props<T>,
+    ref: React.ForwardedRef<HTMLInputElement>
+  ) => {
     const {
       onChange: onChangeProp,
       className,

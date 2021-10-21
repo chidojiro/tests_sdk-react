@@ -1,6 +1,7 @@
-import { useSearchContext } from "@sajari/react-hooks";
+import { useSearchContext, useSorting } from "@sajari/react-hooks";
 import { Form } from "../../components";
 import Item from "./Item";
+import Styled from "./SearchResult.styled";
 
 const sortOptions = [
   { label: "Most relevant", value: "" },
@@ -10,21 +11,38 @@ const sortOptions = [
 ];
 
 const SearchResults = () => {
-  const { totalResults, results } = useSearchContext();
+  const { totalResults, results, resultsPerPage, page, setPage } =
+    useSearchContext();
 
-  console.log(results);
+  const sorting = useSorting();
 
   return (
-    <div className="flex flex-col overflow-hidden">
-      <div className="flex items-center justify-between flex-shrink-0 px-2 py-2 font-semibold border-b border-gray-200 border-solid ">
+    <div className="flex flex-col h-full overflow-hidden">
+      <div className="flex items-center justify-between flex-shrink-0 px-2 py-4 font-semibold border-b border-gray-200 border-solid">
         <div>{totalResults} items</div>
-        <Form.Select name="sortBy" className="w-48" options={sortOptions} />
+        <Form.Select
+          name="sortBy"
+          className="w-48"
+          options={sortOptions}
+          value={sorting.sorting}
+          onChange={(v) => sorting.setSorting(v, true)}
+        />
       </div>
       <div className="flex-1 overflow-auto">
         {results?.map((result) => (
           <Item item={result} key={result.values._id as string} />
         ))}
       </div>
+      <Styled.Pagination
+        className="flex items-center justify-between px-2 pt-4 pb-2 shadow-2xl"
+        total={totalResults}
+        pageSize={resultsPerPage}
+        current={page}
+        onChange={setPage}
+        showTotal={(total: number, range: [number, number]) =>
+          `${range[0]}-${range[1]} of ${total} items`
+        }
+      />
     </div>
   );
 };

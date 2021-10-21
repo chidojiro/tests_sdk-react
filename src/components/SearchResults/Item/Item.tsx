@@ -15,7 +15,9 @@ const Item = ({
 }: Props) => {
   return (
     <div {...restProps} className="flex items-center px-2 py-6">
-      <Image className="w-20 h-20" src={url as string} />
+      <div className="flex-shrink-0 w-32 h-32">
+        <Image className="w-32 h-32" src={url as string} />
+      </div>
       <div className="px-4">
         <h3>{name}</h3>
         <div>Category: {(categories as string[]).join(", ")}</div>

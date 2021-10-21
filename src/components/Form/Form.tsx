@@ -34,7 +34,7 @@ const Form = <TFieldValues extends FieldValues>({
   methods,
   ...props
 }: Props<TFieldValues>) => {
-  const [_, setState] = React.useState(false);
+  const [, setState] = React.useState(false);
 
   const value = React.useCallback(() => setState((p) => !p), []);
 

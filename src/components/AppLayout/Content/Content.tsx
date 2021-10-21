@@ -4,7 +4,7 @@ type Props = React.DetailedHTMLProps<
 > & {};
 
 const Content = (props: Props) => {
-  return <div {...props} className="flex-1 px-4 py-2"></div>;
+  return <div {...props} className="flex-1 px-4 py-2 overflow-hidden"></div>;
 };
 
 export default Content;
