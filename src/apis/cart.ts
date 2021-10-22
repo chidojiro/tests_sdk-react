@@ -2,10 +2,10 @@ import { Cart, Product } from "./../types";
 import { v4 as UUID } from "uuid";
 import ldRemove from "lodash/remove";
 
-const defaultCart = {
+const defaultCart: Cart = {
   id: UUID(),
   items: [],
-} as Cart;
+};
 
 const StorageKey = "CART";
 
@@ -35,9 +35,9 @@ const add = async (product: Product): Promise<Cart> => {
     cart.items.push({ id: product.id, count: 1, details: product });
   }
 
-  await update(cart.id, cart);
+  const newCart = await update(cart.id, cart);
 
-  return cart;
+  return newCart;
 };
 
 const remove = async (productId: string): Promise<Cart> => {
@@ -45,9 +45,9 @@ const remove = async (productId: string): Promise<Cart> => {
 
   ldRemove(cart.items, (item) => item.id === productId);
 
-  await update(cart.id, cart);
+  const newCart = await update(cart.id, cart);
 
-  return cart;
+  return newCart;
 };
 
 const CartApis = { get, add, remove, update };

@@ -1,5 +1,11 @@
-import { useSearchContext, useSorting } from "@sajari/react-hooks";
+import {
+  useFilter,
+  useRangeFilter,
+  useSearchContext,
+  useSorting,
+} from "@sajari/react-hooks";
 import { Select } from "antd";
+import isEqual from "lodash/isEqual";
 import React from "react";
 import { useScrollToTop } from "../../hooks";
 import Item from "./Item";
@@ -18,9 +24,32 @@ const SearchResults = () => {
   const { totalResults, results, resultsPerPage, page, setPage } =
     useSearchContext();
 
+  const categoryFilter = useFilter("level1");
+  const brandFilter = useFilter("brand");
+  const priceFilter = useRangeFilter("price");
+  const ratingFilter = useFilter("rating");
+
   useScrollToTop(resultsRef, [page]);
 
   const sorting = useSorting();
+
+  const isAllPrice = isEqual(priceFilter.range, [
+    priceFilter.min,
+    priceFilter.max,
+  ]);
+
+  const handleMultiFilterTagCloseClick = (
+    filter: typeof categoryFilter | typeof brandFilter | typeof ratingFilter,
+    value: string
+  ) => {
+    const remainingFilters = filter.selected.filter((v) => v !== value);
+
+    filter.setSelected(remainingFilters);
+  };
+
+  const handleRangeFilterTagCloseClick = () => {
+    priceFilter.reset();
+  };
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
@@ -32,6 +61,42 @@ const SearchResults = () => {
           value={sorting.sorting}
           onChange={(v) => sorting.setSorting(v, true)}
         />
+      </div>
+      <div className="flex mt-2">
+        {categoryFilter.selected.map((value) => (
+          <Styled.Tag
+            key={value}
+            closable
+            onClose={() =>
+              handleMultiFilterTagCloseClick(categoryFilter, value)
+            }
+          >
+            {value}
+          </Styled.Tag>
+        ))}
+        {brandFilter.selected.map((value) => (
+          <Styled.Tag
+            key={value}
+            closable
+            onClose={() => handleMultiFilterTagCloseClick(brandFilter, value)}
+          >
+            {value}
+          </Styled.Tag>
+        ))}
+        {!isAllPrice && (
+          <Styled.Tag closable onClose={handleRangeFilterTagCloseClick}>
+            {priceFilter.range?.[0]} - {priceFilter.range?.[1]}
+          </Styled.Tag>
+        )}
+        {ratingFilter.selected.map((value) => (
+          <Styled.Tag
+            key={value}
+            closable
+            onClose={() => handleMultiFilterTagCloseClick(ratingFilter, value)}
+          >
+            {value} star(s)
+          </Styled.Tag>
+        ))}
       </div>
       <div ref={resultsRef} className="flex-1 overflow-auto">
         {results?.map((result) => (

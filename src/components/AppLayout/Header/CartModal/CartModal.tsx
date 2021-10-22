@@ -18,8 +18,6 @@ const CartModal = (props: Props) => {
   const handleDeleteClick = async (productId: string) => {
     const newCart = await CartApis.remove(productId);
 
-    console.log(productId, newCart);
-
     mutate(newCart);
   };
 

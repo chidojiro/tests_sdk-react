@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Pagination as AntdPagination } from "antd";
+import { Pagination as AntdPagination, Tag as AntdTag } from "antd";
 
 const Pagination = styled(AntdPagination)`
   .ant-pagination-total-text {
@@ -7,6 +7,11 @@ const Pagination = styled(AntdPagination)`
   }
 `;
 
-const Styled = { Pagination };
+const Tag = styled(AntdTag)`
+  display: flex;
+  align-items: center;
+`;
+
+const Styled = { Pagination, Tag };
 
 export default Styled;

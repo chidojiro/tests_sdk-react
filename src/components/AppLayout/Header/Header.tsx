@@ -1,6 +1,11 @@
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { useAutocomplete, useSearch } from "@sajari/react-hooks";
+import {
+  useAutocomplete,
+  useSearch,
+  useSearchContext,
+} from "@sajari/react-hooks";
 import { AutoComplete, Badge } from "antd";
+import debounce from "lodash/debounce";
 import React from "react";
 import { useCart } from "../../../hooks";
 import CartModal from "./CartModal";
@@ -10,17 +15,24 @@ type Props = React.DetailedHTMLProps<
   HTMLDivElement
 > & {};
 
+const SEARCH_DEBOUNCE_TIMEOUT = 500;
+
 const Header = (props: Props) => {
-  const [query, setQuery] = React.useState("");
   const { search } = useSearch();
+  const { resetFilters } = useSearchContext();
   const { suggestions, search: searchInstant } = useAutocomplete();
 
   const [isCartModalOpen, setIsCartModalOpen] = React.useState(false);
 
-  const handleQueryChange = (v: string) => {
-    setQuery(v);
-    searchInstant(v);
-  };
+  const debouncedSearchRef = React.useRef(
+    debounce((v: string) => {
+      search(v);
+      searchInstant(v);
+      resetFilters();
+    }, SEARCH_DEBOUNCE_TIMEOUT)
+  );
+
+  const handleQueryChange = debouncedSearchRef.current;
 
   const { data: cart } = useCart();
 
@@ -43,7 +55,6 @@ const Header = (props: Props) => {
         <div className="flex justify-center flex-1">
           <AutoComplete
             className="w-80"
-            value={query}
             onChange={handleQueryChange}
             options={suggestions.map((value) => ({ label: value, value }))}
             onSelect={(value) => {
