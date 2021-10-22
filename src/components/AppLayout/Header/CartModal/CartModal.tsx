@@ -88,7 +88,7 @@ const CartModal = (props: Props) => {
       centered
       width={1000}
       okText="Checkout"
-      onOk={() => alert("not gonna developed!")}
+      onOk={() => alert("not gonna be developed!")}
     >
       <CheckboxGroup
         value={selectedProducts}

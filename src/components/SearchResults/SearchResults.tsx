@@ -48,7 +48,7 @@ const SearchResults = () => {
   };
 
   const handleRangeFilterTagCloseClick = () => {
-    priceFilter.reset();
+    priceFilter.setRange([priceFilter.min, priceFilter.max]);
   };
 
   return (

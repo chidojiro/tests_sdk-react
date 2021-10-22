@@ -16,5 +16,5 @@ FilterBox.Title = (
     React.HTMLAttributes<HTMLHeadingElement>,
     HTMLHeadingElement
   >
-) => <h3 {...props}>{props.children}</h3>;
+) => <h5 {...props}>{props.children}</h5>;
 FilterBox.Item = Item;

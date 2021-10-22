@@ -85,7 +85,7 @@ const Sidebar = (props: Props) => {
         <FilterBox.Title>Price</FilterBox.Title>
         {!!searched && !!priceFilter.max && !!priceFilter.min && (
           <div>
-            <div className="flex justify-between">
+            <div className="flex justify-between text-xs">
               <div>{priceFilter.min}</div>
               <div>{priceFilter.max}</div>
             </div>
