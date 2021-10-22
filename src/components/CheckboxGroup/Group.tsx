@@ -1,6 +1,7 @@
 import React from "react";
 import { noop } from "lodash";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
+import { useControllable } from "../../hooks";
 
 type OwnProps<T = any> = {
   onChange?: (value: T[]) => void;
@@ -34,27 +35,25 @@ const Group = React.forwardRef(
   ) => {
     const {
       onChange: onChangeProp,
-      defaultValue,
+      defaultValue = [],
       value: valueProp,
       name,
       children,
       ...restProps
     } = props;
 
-    const [value, setValue] = React.useState(defaultValue || valueProp || []);
-
-    React.useEffect(() => {
-      if (!valueProp) return;
-
-      setValue(valueProp || []);
-    }, [valueProp]);
+    const [value, setValue] = useControllable({
+      value: valueProp,
+      defaultValue,
+      onChange: onChangeProp,
+    });
 
     const handleChange = React.useCallback(
       (e: CheckboxChangeEvent) => {
         const eventValue = e.target.value as any;
         const isChecked = e.target.checked;
 
-        setValue((prevValue) => {
+        setValue((prevValue: any[]) => {
           let newValue;
           if (isChecked) {
             newValue = [...prevValue, eventValue];
@@ -66,7 +65,7 @@ const Group = React.forwardRef(
           return newValue;
         });
       },
-      [onChangeProp]
+      [onChangeProp, setValue]
     );
 
     const providerValue = React.useMemo(
