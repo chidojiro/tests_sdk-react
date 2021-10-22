@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import React from "react";
 import { noop } from "lodash";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
@@ -6,7 +5,6 @@ import { CheckboxChangeEvent } from "antd/lib/checkbox";
 type OwnProps<T = any> = {
   onChange?: (value: T[]) => void;
   value?: T[];
-  className?: string;
   name?: string;
   defaultValue?: T[];
 };
@@ -36,7 +34,6 @@ const Group = React.forwardRef(
   ) => {
     const {
       onChange: onChangeProp,
-      className,
       defaultValue,
       value: valueProp,
       name,
@@ -79,7 +76,7 @@ const Group = React.forwardRef(
 
     return (
       <GroupContext.Provider value={providerValue}>
-        <div className={classNames("flex flex-wrap", className)} {...restProps}>
+        <div {...restProps}>
           <input ref={ref} name={name} className="minimized" />
           {children}
         </div>
