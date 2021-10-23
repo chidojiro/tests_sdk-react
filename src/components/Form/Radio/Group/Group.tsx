@@ -1,5 +1,5 @@
 import React from "react";
-import BaseRadioGroup, { RadioGroupProps } from "../../../RadioGroup";
+import { RadioGroup as BaseRadioGroup, RadioGroupProps } from "components";
 import Field, { FormFieldProps } from "../../Field";
 
 export type Props<T = any> = RadioGroupProps<T> & FormFieldProps;

@@ -1,8 +1,8 @@
 import { Result } from "@sajari/sdk-js";
 import { Button, Image, Rate } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { useCart } from "../../../hooks";
-import { CartApis } from "../../../apis";
+import { useCart } from "hooks";
+import { CartApis } from "apis";
 
 type Props = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,

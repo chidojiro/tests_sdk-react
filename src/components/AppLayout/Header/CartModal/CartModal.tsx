@@ -1,10 +1,10 @@
 import { DeleteOutlined } from "@ant-design/icons";
 import { Image, Modal, ModalProps, Table } from "antd";
 import React from "react";
-import { CartApis } from "../../../../apis";
-import { CheckboxGroup, CheckboxOption } from "../../../../components";
-import { useCart } from "../../../../hooks";
-import { Product } from "../../../../types";
+import { CartApis } from "apis";
+import { CheckboxGroup, CheckboxOption } from "components";
+import { useCart } from "hooks";
+import { Product } from "types";
 
 type Props = ModalProps;
 

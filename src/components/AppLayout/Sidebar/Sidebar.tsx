@@ -5,7 +5,7 @@ import {
 } from "@sajari/react-hooks";
 import { Rate, Slider } from "antd";
 import React from "react";
-import { CheckboxGroup, CheckboxOption, FilterBox } from "../..";
+import { CheckboxGroup, CheckboxOption, FilterBox } from "components";
 
 type Props = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,

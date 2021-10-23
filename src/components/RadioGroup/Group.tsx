@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { noop } from "lodash";
 import React from "react";
-import { useControllable } from "../../hooks";
+import { useControllable } from "hooks";
 
 export type Props<T = any> = Omit<
   React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,

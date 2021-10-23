@@ -7,7 +7,7 @@ import {
 import { AutoComplete, Badge } from "antd";
 import debounce from "lodash/debounce";
 import React from "react";
-import { useCart } from "../../../hooks";
+import { useCart } from "hooks";
 import CartModal from "./CartModal";
 
 type Props = React.DetailedHTMLProps<

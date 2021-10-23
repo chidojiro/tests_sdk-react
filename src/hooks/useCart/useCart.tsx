@@ -1,7 +1,7 @@
 import React from "react";
 import useSWR from "swr";
-import { CartApis } from "../../apis";
-import { Cart } from "../../types";
+import { CartApis } from "apis";
+import { Cart } from "types";
 
 const useCart = () => {
   const swrReturn = useSWR<Cart>("/cart", () => CartApis.get());

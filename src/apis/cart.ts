@@ -1,4 +1,4 @@
-import { Cart, Product } from "./../types";
+import { Cart, Product } from "types";
 import { v4 as UUID } from "uuid";
 import ldRemove from "lodash/remove";
 

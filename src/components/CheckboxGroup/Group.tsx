@@ -1,7 +1,7 @@
 import React from "react";
 import { noop } from "lodash";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
-import { useControllable } from "../../hooks";
+import { useControllable } from "hooks";
 
 type OwnProps<T = any> = {
   onChange?: (value: T[]) => void;

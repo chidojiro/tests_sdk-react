@@ -3,7 +3,7 @@ import Sidebar from "./Sidebar";
 import Header from "./Header";
 import Body from "./Body";
 import { useSearchContext } from "@sajari/react-hooks";
-import Loading from "../Loading";
+import { Loading } from "components";
 
 type Props = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,

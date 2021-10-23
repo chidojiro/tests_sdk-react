@@ -1,5 +1,5 @@
 import React from "react";
-import { AssertUtils } from "../../utils";
+import { AssertUtils } from "utils";
 
 const useScrollToTop = (
   refOrEle: React.RefObject<Element> | Element,

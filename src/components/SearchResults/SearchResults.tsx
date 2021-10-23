@@ -7,7 +7,7 @@ import {
 import { Select } from "antd";
 import isEqual from "lodash/isEqual";
 import React from "react";
-import { useScrollToTop } from "../../hooks";
+import { useScrollToTop } from "hooks";
 import Item from "./Item";
 import Styled from "./SearchResult.styled";
 
