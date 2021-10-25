@@ -83,7 +83,7 @@ const SearchResults = () => {
             {value}
           </Styled.Tag>
         ))}
-        {!isAllPrice && (
+        {!!priceFilter.range && !isAllPrice && (
           <Styled.Tag closable onClose={handleRangeFilterTagCloseClick}>
             {priceFilter.range?.[0]} - {priceFilter.range?.[1]}
           </Styled.Tag>
